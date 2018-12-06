@@ -147,12 +147,18 @@ public class AlertaService {
 
             // %0D%0A
 
+            /* // Solo para probar para no enviar
+
             HttpURLConnection con = null;
             con = (HttpURLConnection) url.openConnection();
             // con.setRequestMethod("GET");
             con.setRequestMethod("GET");
 
+
+
             System.out.println(con.getResponseMessage());
+
+            */ // Solo para probar
 
             enviada = true;
 

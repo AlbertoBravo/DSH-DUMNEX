@@ -33,6 +33,10 @@ public class OxigenoApiServiceImpl extends OxigenoApiService {
 
         int valoracion = 0;
 
+        /*
+
+        int valoracion = 0;
+
         Mediciones mediciones = null;
         try {
             mediciones = Jdbc.obtenerTodosLasMediciones();
@@ -50,6 +54,18 @@ public class OxigenoApiServiceImpl extends OxigenoApiService {
 
         }
 
+        */
+
+        Medicion medicion_oxigeno = null;
+
+        try {
+            medicion_oxigeno = Jdbc.obtenerUltimoOxigeno(usuarioId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        valoracion = medicion_oxigeno.getOxigeno();
+
         Gson gson = new Gson();
 
         // 1. Java object to JSON, and save into a file
@@ -58,12 +74,7 @@ public class OxigenoApiServiceImpl extends OxigenoApiService {
         // 2. Java object to JSON, and assign to a String
         String jsonInString = gson.toJson(valoracion);
 
-        if (encontrado) {
-            return Response.ok(jsonInString, MediaType.APPLICATION_JSON).build();
-        }else{
-            String notFound = "NotFound";
-            return Response.ok(notFound, MediaType.APPLICATION_JSON).build();
-        }
+        return Response.ok(jsonInString, MediaType.APPLICATION_JSON).build();
 
 
     }

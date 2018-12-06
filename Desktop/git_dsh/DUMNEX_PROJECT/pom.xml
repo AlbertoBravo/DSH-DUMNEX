@@ -49,7 +49,7 @@
           <httpConnector>
             <port>-1</port>
             <idleTimeout>60000</idleTimeout>
-            <host>192.168.0.159</host>
+            <host>192.168.0.155</host>
             <port>8080</port>
           </httpConnector>
         </configuration>

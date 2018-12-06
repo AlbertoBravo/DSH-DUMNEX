@@ -10,6 +10,8 @@ import io.swagger.model.Medicion;
 import io.swagger.model.Mediciones;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import io.swagger.api.NotFoundException;
@@ -78,7 +80,14 @@ public class MedicionesApiServiceImpl extends MedicionesApiService {
         LinkedHashMap mapa = (LinkedHashMap) body;
 
         String dni_usuario = mapa.get( "usuario_id" ).toString();
-        String tiempo = mapa.get( "tiempo" ).toString();
+        // String tiempo = mapa.get( "tiempo" ).toString();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date actualDate = new Date();
+        System.out.println(dateFormat.format(actualDate)); //2016-11-16 12:08:43
+
+        String tiempo = dateFormat.format(actualDate);
+
         Integer pulso = Integer.parseInt(mapa.get( "pulso" ).toString());
         Integer oxigeno = Integer.parseInt( mapa.get( "oxigeno" ).toString());
 
@@ -198,7 +207,7 @@ public class MedicionesApiServiceImpl extends MedicionesApiService {
             pulso = true;
         }
 
-        if (oxigeno_par < 94){
+        if (oxigeno_par < 90){
 
             oxigeno = true;
 

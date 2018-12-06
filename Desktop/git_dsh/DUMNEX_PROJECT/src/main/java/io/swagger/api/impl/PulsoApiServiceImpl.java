@@ -44,7 +44,11 @@ public class PulsoApiServiceImpl extends PulsoApiService {
     @Override
     public Response obtenerPulso( @NotNull String usuarioId, SecurityContext securityContext) throws NotFoundException {
         // do some magic!
-        boolean encontrado = false;
+        // boolean encontrado = false;
+
+        int valoracion = 0;
+
+        /*
 
         int valoracion = 0;
 
@@ -65,6 +69,18 @@ public class PulsoApiServiceImpl extends PulsoApiService {
 
         }
 
+        */
+
+        Medicion medicion_pulso = null;
+
+        try {
+            medicion_pulso = Jdbc.obtenerUltimoPulso(usuarioId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        valoracion = medicion_pulso.getPulso();
+
         Gson gson = new Gson();
 
         // 1. Java object to JSON, and save into a file
@@ -73,12 +89,7 @@ public class PulsoApiServiceImpl extends PulsoApiService {
         // 2. Java object to JSON, and assign to a String
         String jsonInString = gson.toJson(valoracion);
 
-        if (encontrado) {
-            return Response.ok(jsonInString, MediaType.APPLICATION_JSON).build();
-        }else{
-            String notFound = "NotFound";
-            return Response.ok(notFound, MediaType.APPLICATION_JSON).build();
-        }
+        return Response.ok(jsonInString, MediaType.APPLICATION_JSON).build();
 
     }
 

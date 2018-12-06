@@ -1155,6 +1155,128 @@ public class Jdbc {
     }
 
 
+    /*
+
+    Funciones extra para poder obtener oxigeno y pulso, si existen valores
+    de ambos
+
+     */
+
+
+    public static Medicion obtenerUltimoOxigeno(String usuario_id_par) throws Exception {
+
+        Medicion medicion_re = null;
+
+        // Statement statement = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rset = null;
+
+        String dni_usuario = "";
+        String medicion_id = "";
+        String tiempo = "";
+        int pulso = 0;
+        int oxigeno = 0;
+
+        // Connection connection = getConnection();
+
+        // statement = connection.createStatement();
+
+        preparedStatement = connection.prepareStatement("select * from dumnex.mediciones where usuario = ?" +
+                "and oxigeno <> '-1' order by tiempo desc");
+
+        // ps = conexion.prepareStatement("SELECT NOMBRE, APELLIDO1,
+        // APELLIDO2, DIRECCION, INGRESOS FROM POBLACION WHERE DNI = ?");
+
+        preparedStatement.clearParameters();
+        preparedStatement.setString(1,usuario_id_par);
+        rset = preparedStatement.executeQuery(); //ExecuteQuery -> para consultas de tipo SELECT.
+
+        if (rset.next()) {
+
+            System.out.println("ID_Medicion: "+rset.getString(1));
+            medicion_id = rset.getString(1);
+
+            System.out.println("DNI_Usuario: "+rset.getString(2));
+            dni_usuario = rset.getString(2);
+
+            System.out.println("Tiempo: "+rset.getString(3));
+            tiempo = rset.getString(3);
+
+            System.out.println("Pulso: "+rset.getInt(4));
+            pulso = rset.getInt(4);
+
+            System.out.println("Teléfono: "+rset.getInt(5));
+            oxigeno = rset.getInt(5);
+
+            System.out.println("--------------------------------------");
+
+            // usuarios.add(new Usuario(dni,nombre,apellidos,email,telefono,localidad));
+
+            medicion_re = new Medicion(medicion_id,dni_usuario,tiempo,pulso,oxigeno);
+
+        }
+
+        return medicion_re;
+
+    }
+
+
+    public static Medicion obtenerUltimoPulso(String usuario_id_par) throws Exception {
+
+        Medicion medicion_re = null;
+
+        // Statement statement = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rset = null;
+
+        String dni_usuario = "";
+        String medicion_id = "";
+        String tiempo = "";
+        int pulso = 0;
+        int oxigeno = 0;
+
+        // Connection connection = getConnection();
+
+        // statement = connection.createStatement();
+
+        preparedStatement = connection.prepareStatement("select * from dumnex.mediciones where usuario = ?" +
+                "and pulso <> '-1' order by tiempo desc");
+
+        // ps = conexion.prepareStatement("SELECT NOMBRE, APELLIDO1,
+        // APELLIDO2, DIRECCION, INGRESOS FROM POBLACION WHERE DNI = ?");
+
+        preparedStatement.clearParameters();
+        preparedStatement.setString(1,usuario_id_par);
+        rset = preparedStatement.executeQuery(); //ExecuteQuery -> para consultas de tipo SELECT.
+
+        if (rset.next()) {
+
+            System.out.println("ID_Medicion: "+rset.getString(1));
+            medicion_id = rset.getString(1);
+
+            System.out.println("DNI_Usuario: "+rset.getString(2));
+            dni_usuario = rset.getString(2);
+
+            System.out.println("Tiempo: "+rset.getString(3));
+            tiempo = rset.getString(3);
+
+            System.out.println("Pulso: "+rset.getInt(4));
+            pulso = rset.getInt(4);
+
+            System.out.println("Teléfono: "+rset.getInt(5));
+            oxigeno = rset.getInt(5);
+
+            System.out.println("--------------------------------------");
+
+            // usuarios.add(new Usuario(dni,nombre,apellidos,email,telefono,localidad));
+
+            medicion_re = new Medicion(medicion_id,dni_usuario,tiempo,pulso,oxigeno);
+
+        }
+
+        return medicion_re;
+
+    }
 
     public static void main(String[] args) {
         // create a new connection from MySQLJDBCUtil
